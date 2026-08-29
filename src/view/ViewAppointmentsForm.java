@@ -4,17 +4,15 @@ package view;
 import controller.ClinicController;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
-import java.sql.ResultSet;
-import database.DatabaseConnection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 
 public class ViewAppointmentsForm extends javax.swing.JFrame {
     
+    private ClinicController controller;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ViewAppointmentsForm.class.getName());
 
     public ViewAppointmentsForm() {
         initComponents();
+        controller = new ClinicController();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
@@ -103,21 +101,19 @@ public class ViewAppointmentsForm extends javax.swing.JFrame {
 
     private void btnLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadActionPerformed
         // TODO add your handling code here:
-        try {
-            String query = "SELECT appt_num, name, treatment, cost FROM appointments";
-            PreparedStatement pstmt = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
-            ResultSet rs = pstmt.executeQuery();
+           DefaultTableModel model = (DefaultTableModel) tblAppointments.getModel();
+           model.setRowCount(0); 
+           
+           java.util.List<model.Appointment> appointments = controller.getAllAppointments(); 
             
-            DefaultTableModel model = (DefaultTableModel) tblAppointments.getModel();
-            model.setRowCount(0); 
-            
-            while(rs.next()){
-                model.addRow(new Object[]{
-                    rs.getString("appt_num"),
-                    rs.getString("name"),
-                    rs.getString("treatment"),
-                    rs.getDouble("cost")
-                });
+            for (model.Appointment appt : appointments) {
+              model.addRow(new Object[]{
+                appt.getApptNumber(),
+                appt.getPatientName(),
+                appt.getContactNumber(),
+                appt.getTreatmentType(),
+                appt.getTotalCost()
+            });
             }
         } catch(SQLException e) {
             JOptionPane.showMessageDialog(this, "Database Error: " + e.getMessage());
@@ -136,15 +132,12 @@ public class ViewAppointmentsForm extends javax.swing.JFrame {
         int confirm = JOptionPane.showConfirmDialog(this, "Delete Appointment " + apptNo + "?", "Confirm", JOptionPane.YES_NO_OPTION);
         
         if (confirm == JOptionPane.YES_OPTION) {
-            try {
-                String query = "DELETE FROM appointments WHERE appt_num = ?";
-                PreparedStatement pstmt = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
-                pstmt.setString(1, apptNo);
-                pstmt.executeUpdate();
+            // Send delete request to Controller instead of writing SQL here
+            if (controller.deleteAppointment(apptNo)) {
                 JOptionPane.showMessageDialog(this, "Deleted Successfully.");
                 btnLoadActionPerformed(evt); // Refresh table
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(this, "Database Error.");
+            } else {
+                JOptionPane.showMessageDialog(this, "Failed to delete record.");
             }
         }
     }//GEN-LAST:event_btnDeleteActionPerformed

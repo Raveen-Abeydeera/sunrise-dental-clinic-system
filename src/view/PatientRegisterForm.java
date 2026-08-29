@@ -1,6 +1,7 @@
 
 package view;
 import javax.swing.JOptionPane;
+import controller.ClinicController;
 
 public class PatientRegisterForm extends javax.swing.JFrame {
     
@@ -75,13 +76,12 @@ public class PatientRegisterForm extends javax.swing.JFrame {
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtName)
-                                .addComponent(txtAddress)
-                                .addComponent(txtContact, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
-                                .addComponent(txtPatId, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtName)
+                            .addComponent(txtAddress)
+                            .addComponent(txtContact, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
+                            .addComponent(txtPatId, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtAge, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnSave)
                         .addGap(113, 113, 113))
@@ -145,14 +145,34 @@ public class PatientRegisterForm extends javax.swing.JFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
-        if (txtPatId.getText().isEmpty() || txtName.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Patient ID and Name are required!");
-            return;
-            }
+        if (txtPatId.getText().trim().isEmpty() || txtName.getText().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Patient ID and Full Name are required!", "Validation Error", JOptionPane.ERROR_MESSAGE);
+        return;
+        }
         
+        int age = 0;
+        try {
+        if (!txtAge.getText().trim().isEmpty()) {
+            age = Integer.parseInt(txtAge.getText().trim());
+        }
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Please enter a valid number for Age.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+        ClinicController controller = new ClinicController();
+            boolean success = controller.registerNewPatient(
+        txtPatId.getText().trim(),
+        txtName.getText().trim(),
+        txtAddress.getText().trim(),
+        txtContact.getText().trim(),
+        age
+    );
         // In a full implementation, you would pass this data to a PatientDAO here.
-        JOptionPane.showMessageDialog(this, "Patient " + txtName.getText() + " registered successfully in the system.");
-        this.dispose(); // Close form after saving
+        if (success) {
+        JOptionPane.showMessageDialog(this, "Patient " + txtName.getText() + " registered successfully!");
+        this.dispose(); // Safely close form after saving
+    } else {
+        JOptionPane.showMessageDialog(this, "Failed to save patient. Please check database connection.", "Database Error", JOptionPane.ERROR_MESSAGE); // Close form after saving
     }//GEN-LAST:event_btnSaveActionPerformed
 }
     /**

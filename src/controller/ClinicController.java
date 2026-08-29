@@ -3,12 +3,21 @@ package controller;
 import model.Appointment;
 import dao.AppointmentDAO;
 import dao.AppointmentDAOImpl;
+// These are the missing imports causing your crash:
+import dao.PatientDAO;         
+import dao.PatientDAOImpl;     
+import dao.UserDAO;            
+import dao.UserDAOImpl;        
 import java.util.HashMap;
 
 public class ClinicController {
     
     private final HashMap<String, Double> treatmentPrices;
-    private final AppointmentDAO appointmentDAO; 
+    private final AppointmentDAO appointmentDAO;
+    
+    // New DAO declarations
+    private final UserDAO userDAO;          
+    private final PatientDAO patientDAO;    
 
     public ClinicController() {
         // Simulating a catalog for Bill Calculations
@@ -18,12 +27,20 @@ public class ClinicController {
         treatmentPrices.put("Extraction", 5000.00);
         treatmentPrices.put("Whitening", 12000.00);
         
-        appointmentDAO = new AppointmentDAOImpl(); 
+        appointmentDAO = new AppointmentDAOImpl();
+        
+        // Initializing the new DAOs
+        userDAO = new UserDAOImpl();          
+        patientDAO = new PatientDAOImpl();    
     }
 
     public boolean authenticateUser(String username, String password) {
-        // Hardcoded auth for demo. Real systems would check a UserDAO.
-        return username.equals("admin") && password.equals("sunrise123");
+        // Now uses the database instead of hardcoded values
+        return userDAO.authenticate(username, password) != null;
+    }
+    
+    public boolean registerNewPatient(String patientId, String name, String address, String contact, int age) {
+        return patientDAO.registerPatient(patientId, name, address, contact, age);
     }
 
     public double calculateTreatmentCost(String treatmentType) {
@@ -40,5 +57,13 @@ public class ClinicController {
     
     public Appointment searchAppointment(String apptNum) {
         return appointmentDAO.getAppointmentByNumber(apptNum);
+    }
+    
+    public java.util.List<Appointment> getAllAppointments() {
+        return appointmentDAO.getAllAppointments();
+    }
+
+    public boolean deleteAppointment(String apptNum) {
+        return appointmentDAO.deleteAppointment(apptNum);
     }
 }

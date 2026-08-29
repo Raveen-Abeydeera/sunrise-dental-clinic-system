@@ -33,6 +33,57 @@ public class AppointmentDAOImpl implements AppointmentDAO {
             return false;
         }
     }
+    
+  @Override
+    public List<Appointment> getAllAppointments() {
+        List<Appointment> appointments = new java.util.ArrayList<>();
+        // Using JOINs to get the patient name and treatment name based on your schema
+        String query = "SELECT a.appointment_number, p.full_name, p.contact_number, t.treatment_name, a.total_cost " +
+                       "FROM appointments a " +
+                       "JOIN patients p ON a.patient_id = p.patient_id " +
+                       "JOIN treatments t ON a.treatment_id = t.treatment_id";
+        
+        try {
+            Connection conn = DatabaseConnection.getInstance().getConnection();
+            if (conn == null) return appointments;
+            
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            ResultSet rs = pstmt.executeQuery();
+            
+            while (rs.next()) {
+                // Creating a simplified Appointment object for the table view
+                Appointment appt = new Appointment(
+                    rs.getString("appointment_number"),
+                    rs.getString("full_name"),
+                    "", // address not needed for this view
+                    rs.getString("contact_number"),
+                    "", // dentist not needed for this view
+                    rs.getString("treatment_name"),
+                    "", // date
+                    "", // time
+                    rs.getDouble("total_cost")
+                );
+                appointments.add(appt);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return appointments;
+    }
+
+    @Override
+    public boolean deleteAppointment(String apptNumber) {
+        String query = "DELETE FROM appointments WHERE appointment_number = ?";
+        try {
+            Connection conn = DatabaseConnection.getInstance().getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setString(1, apptNumber);
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }  
 
     @Override
     public Appointment getAppointmentByNumber(String apptNumber) {
