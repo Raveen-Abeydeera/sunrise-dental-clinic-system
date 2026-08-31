@@ -3,12 +3,12 @@ package controller;
 import model.Appointment;
 import dao.AppointmentDAO;
 import dao.AppointmentDAOImpl;
-// These are the missing imports causing your crash:
 import dao.PatientDAO;         
 import dao.PatientDAOImpl;     
 import dao.UserDAO;            
 import dao.UserDAOImpl;        
 import java.util.HashMap;
+import util.EmailUtil;
 
 public class ClinicController {
     
@@ -52,7 +52,26 @@ public class ClinicController {
         if (appt.getPatientName().isEmpty() || appt.getContactNumber().isEmpty()) {
             return false;
         }
-        return appointmentDAO.addAppointment(appt);
+        
+        boolean isSaved = appointmentDAO.addAppointment(appt);
+        
+        // If saved successfully in the database, trigger the email alert
+        if (isSaved) {
+            // Note: In a full system, you would fetch the patient's actual email from the Patient table.
+            // For demonstration, we'll pass a placeholder or the contact number field if used as email.
+            String patientEmail = "patient@example.com"; 
+            
+            EmailUtil.sendAppointmentConfirmation(
+                patientEmail, 
+                appt.getPatientName(), 
+                appt.getApptNumber(), 
+                appt.getDate(), 
+                appt.getTime(), 
+                appt.getTotalCost()
+            );
+        }
+        
+        return isSaved;
     }
     
     public Appointment searchAppointment(String apptNum) {
