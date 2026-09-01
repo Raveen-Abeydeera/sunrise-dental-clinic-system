@@ -9,6 +9,8 @@ import dao.UserDAO;
 import dao.UserDAOImpl;        
 import java.util.HashMap;
 import util.EmailUtil;
+import dao.ReportDAO;
+import dao.ReportDAOImpl;
 
 public class ClinicController {
     
@@ -17,7 +19,8 @@ public class ClinicController {
     
     // New DAO declarations
     private final UserDAO userDAO;          
-    private final PatientDAO patientDAO;    
+    private final PatientDAO patientDAO; 
+    private final ReportDAO reportDAO;
 
     public ClinicController() {
         // Simulating a catalog for Bill Calculations
@@ -31,9 +34,17 @@ public class ClinicController {
         
         // Initializing the new DAOs
         userDAO = new UserDAOImpl();          
-        patientDAO = new PatientDAOImpl();    
+        patientDAO = new PatientDAOImpl(); 
+        reportDAO = new ReportDAOImpl();
     }
-
+    
+    public boolean registerStaff(String username, String password, String role, String fullName, String email) {
+        if (username.isEmpty() || password.isEmpty() || fullName.isEmpty()) {
+            return false; 
+        }
+        return userDAO.registerUser(username, password, role, fullName, email);
+    }
+    
     public boolean authenticateUser(String username, String password) {
         // Now uses the database instead of hardcoded values
         return userDAO.authenticate(username, password) != null;
@@ -84,5 +95,9 @@ public class ClinicController {
 
     public boolean deleteAppointment(String apptNum) {
         return appointmentDAO.deleteAppointment(apptNum);
+    }
+    
+    public java.util.List<Object[]> generateDailyReport(String date) {
+        return reportDAO.getDailyReport(date);
     }
 }

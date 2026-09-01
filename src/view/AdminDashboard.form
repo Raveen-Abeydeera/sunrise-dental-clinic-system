@@ -41,7 +41,7 @@
                               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="btnManageUsers" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnReports" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnReportsActionPerformed" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -68,7 +68,7 @@
               <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnReports" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnReportsActionPerformed" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -99,12 +99,12 @@
         <Property name="text" type="java.lang.String" value="View Financial Reports"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnReports">
+    <Component class="javax.swing.JButton" name="btnReportsActionPerformed">
       <Properties>
         <Property name="text" type="java.lang.String" value="View"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReportsActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReportsActionPerformedActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
@@ -121,6 +121,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Manage"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnManageUsersActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnSettings">
       <Properties>
@@ -131,6 +134,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Logout"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLogoutActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

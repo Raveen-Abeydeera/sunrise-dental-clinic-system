@@ -1,13 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package view;
 
-/**
- *
- * @author User
- */
 public class ReceptionDashboard extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ReceptionDashboard.class.getName());
@@ -53,14 +46,19 @@ public class ReceptionDashboard extends javax.swing.JFrame {
         jLabel5.setText("Help Section");
 
         btnRegPatient.setText("Register");
+        btnRegPatient.addActionListener(this::btnRegPatientActionPerformed);
 
         btnBookAppt.setText("Book");
+        btnBookAppt.addActionListener(this::btnBookApptActionPerformed);
 
         btnBilling.setText("Search");
+        btnBilling.addActionListener(this::btnBillingActionPerformed);
 
         btnHelp.setText("Help");
+        btnHelp.addActionListener(this::btnHelpActionPerformed);
 
         btnLogout.setText("Logout");
+        btnLogout.addActionListener(this::btnLogoutActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -115,6 +113,32 @@ public class ReceptionDashboard extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnRegPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegPatientActionPerformed
+        // TODO add your handling code here:
+        new PatientRegisterForm().setVisible(true);
+    }//GEN-LAST:event_btnRegPatientActionPerformed
+
+    private void btnBookApptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookApptActionPerformed
+        // TODO add your handling code here:
+        new NewAppointmentForm().setVisible(true);
+    }//GEN-LAST:event_btnBookApptActionPerformed
+
+    private void btnBillingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBillingActionPerformed
+        // TODO add your handling code here:
+        new SearchBillingForm().setVisible(true);
+    }//GEN-LAST:event_btnBillingActionPerformed
+
+    private void btnHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHelpActionPerformed
+        // TODO add your handling code here:
+        new HelpForm().setVisible(true);
+    }//GEN-LAST:event_btnHelpActionPerformed
+
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        // TODO add your handling code here:
+        new LoginForm().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnLogoutActionPerformed
 
     /**
      * @param args the command line arguments

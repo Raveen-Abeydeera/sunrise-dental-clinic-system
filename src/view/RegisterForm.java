@@ -2,15 +2,18 @@
 package view;
 
 import controller.ClinicController;
-import javax.swing.JOptionPane;
+import javax.swing.*;
+import java.awt.*;
 
 public class RegisterForm extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(RegisterForm.class.getName());
 
-    /**
-     * Creates new form RegisterForm
-     */
+   private JTextField txtFullName, txtUsername, txtEmail;
+    private JPasswordField txtPassword;
+    private JComboBox<String> cmbRole;
+    private ClinicController controller;
+    
     public RegisterForm() {
         initComponents();
         controller = new ClinicController();
@@ -155,6 +158,9 @@ public class RegisterForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Name, Username, and Password are required fields.", "Validation Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        
+        // THIS LINE WAS MISSING: You must actually call the controller!
+        boolean isRegistered = controller.registerStaff(username, password, role, fullName, email);
         
         if (isRegistered) {
             JOptionPane.showMessageDialog(this, "Staff member " + fullName + " registered successfully as " + role + "!");

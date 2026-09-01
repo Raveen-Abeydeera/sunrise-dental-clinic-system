@@ -30,7 +30,7 @@ public class AdminDashboard extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        btnReports = new javax.swing.JButton();
+        btnReportsActionPerformed = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         btnManageUsers = new javax.swing.JButton();
@@ -44,18 +44,20 @@ public class AdminDashboard extends javax.swing.JFrame {
 
         jLabel2.setText("View Financial Reports");
 
-        btnReports.setText("View");
-        btnReports.addActionListener(this::btnReportsActionPerformed);
+        btnReportsActionPerformed.setText("View");
+        btnReportsActionPerformed.addActionListener(this::btnReportsActionPerformedActionPerformed);
 
         jLabel3.setText("Manage Staff Accounts");
 
         jLabel4.setText("System Settings");
 
         btnManageUsers.setText("Manage");
+        btnManageUsers.addActionListener(this::btnManageUsersActionPerformed);
 
         btnSettings.setText("Settings");
 
         btnLogout.setText("Logout");
+        btnLogout.addActionListener(this::btnLogoutActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -77,7 +79,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                                 .addGap(30, 30, 30)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btnManageUsers)
-                                    .addComponent(btnReports))))
+                                    .addComponent(btnReportsActionPerformed))))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -95,7 +97,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(btnReports))
+                    .addComponent(btnReportsActionPerformed))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -110,9 +112,21 @@ public class AdminDashboard extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnReportsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportsActionPerformed
+    private void btnReportsActionPerformedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportsActionPerformedActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnReportsActionPerformed
+        new FinancialReportForm().setVisible(true);
+    }//GEN-LAST:event_btnReportsActionPerformedActionPerformed
+
+    private void btnManageUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageUsersActionPerformed
+        // TODO add your handling code here:
+        new RegisterForm().setVisible(true);
+    }//GEN-LAST:event_btnManageUsersActionPerformed
+
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        // TODO add your handling code here:
+        new LoginForm().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnLogoutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -142,7 +156,7 @@ public class AdminDashboard extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnManageUsers;
-    private javax.swing.JButton btnReports;
+    private javax.swing.JButton btnReportsActionPerformed;
     private javax.swing.JButton btnSettings;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

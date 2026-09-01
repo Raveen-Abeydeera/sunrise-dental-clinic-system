@@ -174,7 +174,8 @@ public class PatientRegisterForm extends javax.swing.JFrame {
     } else {
         JOptionPane.showMessageDialog(this, "Failed to save patient. Please check database connection.", "Database Error", JOptionPane.ERROR_MESSAGE); // Close form after saving
     }//GEN-LAST:event_btnSaveActionPerformed
-}
+    
+  }                                       
     /**
      * @param args the command line arguments
      */
