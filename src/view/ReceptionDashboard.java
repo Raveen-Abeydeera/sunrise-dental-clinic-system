@@ -10,6 +10,8 @@ public class ReceptionDashboard extends javax.swing.JFrame {
      */
     public ReceptionDashboard() {
         initComponents();
+        setLocationRelativeTo(null); // Centers the window on your monitor
+        this.setResizable(false);
     }
 
     /**
@@ -31,6 +33,7 @@ public class ReceptionDashboard extends javax.swing.JFrame {
         btnBilling = new javax.swing.JButton();
         btnHelp = new javax.swing.JButton();
         btnLogout = new javax.swing.JButton();
+        btnCalculator = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -60,30 +63,40 @@ public class ReceptionDashboard extends javax.swing.JFrame {
         btnLogout.setText("Logout");
         btnLogout.addActionListener(this::btnLogoutActionPerformed);
 
+        btnCalculator.setText("Calculator");
+        btnCalculator.addActionListener(this::btnCalculatorActionPerformed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnBilling)
-                    .addComponent(btnBookAppt)
-                    .addComponent(btnRegPatient)
-                    .addComponent(btnHelp))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
-                .addComponent(btnLogout)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnBilling)
+                            .addComponent(btnRegPatient)
+                            .addComponent(btnHelp)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnBookAppt)
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
+                        .addComponent(btnLogout)))
                 .addGap(29, 29, 29))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(88, 88, 88)
+                .addComponent(btnCalculator)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,7 +121,9 @@ public class ReceptionDashboard extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(btnHelp))
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addGap(31, 31, 31)
+                .addComponent(btnCalculator)
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         pack();
@@ -140,6 +155,11 @@ public class ReceptionDashboard extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnLogoutActionPerformed
 
+    private void btnCalculatorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculatorActionPerformed
+        // TODO add your handling code here:
+        new Calculator().setVisible(true);
+    }//GEN-LAST:event_btnCalculatorActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -168,6 +188,7 @@ public class ReceptionDashboard extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBilling;
     private javax.swing.JButton btnBookAppt;
+    private javax.swing.JButton btnCalculator;
     private javax.swing.JButton btnHelp;
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnRegPatient;

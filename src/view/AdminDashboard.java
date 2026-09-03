@@ -1,13 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package view;
 
-/**
- *
- * @author User
- */
 public class AdminDashboard extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AdminDashboard.class.getName());
@@ -17,6 +10,8 @@ public class AdminDashboard extends javax.swing.JFrame {
      */
     public AdminDashboard() {
         initComponents();
+        setLocationRelativeTo(null); // Centers the window on your monitor
+        this.setResizable(false);
     }
 
     /**
@@ -55,6 +50,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         btnManageUsers.addActionListener(this::btnManageUsersActionPerformed);
 
         btnSettings.setText("Settings");
+        btnSettings.addActionListener(this::btnSettingsActionPerformed);
 
         btnLogout.setText("Logout");
         btnLogout.addActionListener(this::btnLogoutActionPerformed);
@@ -127,6 +123,11 @@ public class AdminDashboard extends javax.swing.JFrame {
         new LoginForm().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnLogoutActionPerformed
+
+    private void btnSettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSettingsActionPerformed
+        // TODO add your handling code here:
+        javax.swing.JOptionPane.showMessageDialog(this, "System Settings Configuration Loading...", "Settings", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_btnSettingsActionPerformed
 
     /**
      * @param args the command line arguments

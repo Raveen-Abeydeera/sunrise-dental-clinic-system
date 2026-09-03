@@ -10,6 +10,8 @@ public class DoctorDashboard extends javax.swing.JFrame {
     public DoctorDashboard() {
         initComponents();
         setLocationRelativeTo(null);
+        setLocationRelativeTo(null); // Centers the window on your monitor
+        this.setResizable(false);
     }
 
   

@@ -7,16 +7,19 @@ import java.time.LocalDate;
 
 public class FinancialReportForm extends javax.swing.JFrame {
     
+    private ClinicController controller;
+    
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FinancialReportForm.class.getName());
 
-    /**
-     * Creates new form FinancialReportForm
-     */
+    
     public FinancialReportForm() {
         initComponents();
         controller = new ClinicController();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        txtDate.setText(java.time.LocalDate.now().toString());
+        setLocationRelativeTo(null); // Centers the window on your monitor
+        this.setResizable(false);
     }
 
     /**
@@ -57,7 +60,6 @@ public class FinancialReportForm extends javax.swing.JFrame {
 
         jLabel2.setText("Enter Date (YYYY-MM-DD):");
 
-        txtDate.setText("2026-09-01");
         txtDate.addActionListener(this::txtDateActionPerformed);
 
         btnGenerate.setText("Generate Report");
@@ -94,7 +96,7 @@ public class FinancialReportForm extends javax.swing.JFrame {
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(33, 33, 33)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 629, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(39, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -108,8 +110,8 @@ public class FinancialReportForm extends javax.swing.JFrame {
                     .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGenerate))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();

@@ -10,6 +10,8 @@ public class LoginForm extends javax.swing.JFrame {
      */
     public LoginForm() {
         initComponents();
+        setLocationRelativeTo(null); // Centers the window on your monitor
+        this.setResizable(false);
     }
 
     /**
@@ -21,45 +23,21 @@ public class LoginForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtUsername = new javax.swing.JTextField();
-        txtPassword = new javax.swing.JTextField();
-        jDesktopPane1 = new javax.swing.JDesktopPane();
+        jFileChooser1 = new javax.swing.JFileChooser();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         btnLogin = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
+        txtUsername = new javax.swing.JTextField();
+        txtPassword = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setText("System Login");
-
-        jDesktopPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
-        jDesktopPane1.setLayout(jDesktopPane1Layout);
-        jDesktopPane1Layout.setHorizontalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
-        );
-        jDesktopPane1Layout.setVerticalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                .addGap(0, 12, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jLabel2.setText("Username");
-
-        jLabel3.setText("Password");
-
-        jLabel4.setText("Role");
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel1.setText("Sunrise Dental Clinic System Login");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Doctor", "Receptionist" }));
 
@@ -69,79 +47,110 @@ public class LoginForm extends javax.swing.JFrame {
         btnClear.setText("Clear");
         btnClear.addActionListener(this::btnClearActionPerformed);
 
+        txtUsername.addActionListener(this::txtUsernameActionPerformed);
+
+        txtPassword.addActionListener(this::txtPasswordActionPerformed);
+
+        jLabel2.setText("Username :");
+
+        jLabel3.setText("Password :");
+
+        jLabel4.setText("Role");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(83, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(121, 121, 121)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnLogin)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(37, 37, 37)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtUsername)
-                                    .addComponent(txtPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(52, 52, 52)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(31, 31, 31)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnClear)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(77, 77, 77))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(103, 103, 103))))
+                                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnLogin)
+                                .addGap(57, 57, 57)
+                                .addComponent(btnClear)
+                                .addGap(21, 21, 21))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(156, 156, 156)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(139, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
+                .addGap(60, 60, 60)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(51, 51, 51)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel2)
+                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addGap(30, 30, 30)
+                .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLogin)
                     .addComponent(btnClear))
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPasswordActionPerformed
+
+    private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUsernameActionPerformed
+
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        // TODO add your handling code here:
+        txtUsername.setText("");
+        txtPassword.setText("");
+        jComboBox1.setSelectedIndex(0);
+    }//GEN-LAST:event_btnClearActionPerformed
+
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
         String username = txtUsername.getText().trim();
         String password = txtPassword.getText().trim();
-        String role = jComboBox1.getSelectedItem().toString(); // "Admin", "Doctor", or "Receptionist"
+        String selectedRole = jComboBox1.getSelectedItem().toString().toLowerCase();
 
         controller.ClinicController controller = new controller.ClinicController();
+        model.User loggedInUser = controller.authenticateUser(username, password);
 
-        if (controller.authenticateUser(username, password)) {
-            // Route to the correct dashboard
-            if (role.equals("Admin")) {
+        if (loggedInUser != null) {
+            String actualDbRole = loggedInUser.getRole().toLowerCase();
+
+            // SECURITY: Block them if the dropdown doesn't match their real database role
+            if (!actualDbRole.equals(selectedRole)) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Access Denied. Your account does not have " + selectedRole + " privileges.", "Security Breach Blocked", javax.swing.JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Route safely
+            if (actualDbRole.equals("admin")) {
                 new AdminDashboard().setVisible(true);
-            } else if (role.equals("Doctor")) {
+            } else if (actualDbRole.equals("doctor")) {
                 new DoctorDashboard().setVisible(true);
             } else {
                 new ReceptionDashboard().setVisible(true);
@@ -151,10 +160,6 @@ public class LoginForm extends javax.swing.JFrame {
             javax.swing.JOptionPane.showMessageDialog(this, "Invalid Username or Password.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnLoginActionPerformed
-
-    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnClearActionPerformed
 
     /**
      * @param args the command line arguments
@@ -185,7 +190,7 @@ public class LoginForm extends javax.swing.JFrame {
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnLogin;
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

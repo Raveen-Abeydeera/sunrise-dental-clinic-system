@@ -6,26 +6,30 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.ArrayList;
 
 public class AppointmentDAOImpl implements AppointmentDAO {
 
     @Override
     public boolean addAppointment(Appointment appt) {
-        String query = "INSERT INTO appointments (appt_num, name, address, contact, dentist, treatment, appt_date, appt_time, cost) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        
+        String query = "INSERT INTO appointments (appt_num, patient_id, name, address, contact, dentist, treatment, appt_date, appt_time, cost) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             Connection conn = DatabaseConnection.getInstance().getConnection();
             if (conn == null) return false;
             
             PreparedStatement pstmt = conn.prepareStatement(query);
             pstmt.setString(1, appt.getApptNumber());
-            pstmt.setString(2, appt.getPatientName());
-            pstmt.setString(3, appt.getAddress());
-            pstmt.setString(4, appt.getContactNumber());
-            pstmt.setString(5, appt.getDentistName());
-            pstmt.setString(6, appt.getTreatmentType());
-            pstmt.setString(7, appt.getDate());
-            pstmt.setString(8, appt.getTime());
-            pstmt.setDouble(9, appt.getTotalCost());
+            pstmt.setString(2, appt.getPatientId());
+            pstmt.setString(3, appt.getPatientName());
+            pstmt.setString(4, appt.getAddress());
+            pstmt.setString(5, appt.getContactNumber());
+            pstmt.setString(6, appt.getDentistName());
+            pstmt.setString(7, appt.getTreatmentType());
+            pstmt.setString(8, appt.getDate());
+            pstmt.setString(9, appt.getTime());
+            pstmt.setDouble(10, appt.getTotalCost());
             
             return pstmt.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -33,16 +37,11 @@ public class AppointmentDAOImpl implements AppointmentDAO {
             return false;
         }
     }
-    
-  @Override
+
+    @Override
     public List<Appointment> getAllAppointments() {
-        List<Appointment> appointments = new java.util.ArrayList<>();
-        // Using JOINs to get the patient name and treatment name based on your schema
-        String query = "SELECT a.appointment_number, p.full_name, p.contact_number, t.treatment_name, a.total_cost " +
-                       "FROM appointments a " +
-                       "JOIN patients p ON a.patient_id = p.patient_id " +
-                       "JOIN treatments t ON a.treatment_id = t.treatment_id";
-        
+        List<Appointment> appointments = new ArrayList<>();
+        String query = "SELECT appt_num, name, contact, treatment, cost FROM appointments";
         try {
             Connection conn = DatabaseConnection.getInstance().getConnection();
             if (conn == null) return appointments;
@@ -51,17 +50,17 @@ public class AppointmentDAOImpl implements AppointmentDAO {
             ResultSet rs = pstmt.executeQuery();
             
             while (rs.next()) {
-                // Creating a simplified Appointment object for the table view
                 Appointment appt = new Appointment(
-                    rs.getString("appointment_number"),
-                    rs.getString("full_name"),
-                    "", // address not needed for this view
-                    rs.getString("contact_number"),
-                    "", // dentist not needed for this view
-                    rs.getString("treatment_name"),
-                    "", // date
-                    "", // time
-                    rs.getDouble("total_cost")
+                    rs.getString("appt_num"),
+                    "", // patientId omitted for this view
+                    rs.getString("name"),
+                    "", // address omitted
+                    rs.getString("contact"),
+                    "", // dentist omitted
+                    rs.getString("treatment"),
+                    "", // date omitted
+                    "", // time omitted
+                    rs.getDouble("cost")
                 );
                 appointments.add(appt);
             }
@@ -73,7 +72,7 @@ public class AppointmentDAOImpl implements AppointmentDAO {
 
     @Override
     public boolean deleteAppointment(String apptNumber) {
-        String query = "DELETE FROM appointments WHERE appointment_number = ?";
+        String query = "DELETE FROM appointments WHERE appt_num = ?";
         try {
             Connection conn = DatabaseConnection.getInstance().getConnection();
             PreparedStatement pstmt = conn.prepareStatement(query);
@@ -83,7 +82,7 @@ public class AppointmentDAOImpl implements AppointmentDAO {
             e.printStackTrace();
             return false;
         }
-    }  
+    }
 
     @Override
     public Appointment getAppointmentByNumber(String apptNumber) {
@@ -99,6 +98,7 @@ public class AppointmentDAOImpl implements AppointmentDAO {
             if (rs.next()) {
                 return new Appointment(
                     rs.getString("appt_num"),
+                    rs.getString("patient_id"),
                     rs.getString("name"),
                     rs.getString("address"),
                     rs.getString("contact"),
@@ -112,6 +112,6 @@ public class AppointmentDAOImpl implements AppointmentDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null; // Returns null if not found
+        return null;
     }
 }

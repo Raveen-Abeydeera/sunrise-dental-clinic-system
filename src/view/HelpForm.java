@@ -1,23 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package view;
 
-/**
- *
- * @author User
- */
 public class HelpForm extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(HelpForm.class.getName());
 
-    /**
-     * Creates new form HelpForm
-     */
+   
     public HelpForm() {
         initComponents();
         setLocationRelativeTo(null);
+        setLocationRelativeTo(null); // Centers the window on your monitor
+        this.setResizable(false);
         
         txtHelpContent.setText("=== SUNRISE DENTAL CLINIC HELP GUIDE ===\n\n" +
             "1. REGISTRATION: Always register a new patient first using the 'Patient Register' module to generate a Patient ID.\n" +

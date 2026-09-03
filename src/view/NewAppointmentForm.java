@@ -14,6 +14,8 @@ public class NewAppointmentForm extends javax.swing.JFrame {
         controller = new ClinicController();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(null); // Centers the window on your monitor
+        this.setResizable(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -156,34 +158,34 @@ public class NewAppointmentForm extends javax.swing.JFrame {
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
         // TODO add your handling code here:
-        if (txtApptNo.getText().isEmpty() || txtPatId.getText().isEmpty()) {
+        if (txtApptNo.getText().trim().isEmpty() || txtPatId.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Appt No and Patient ID are required!");
             return;
         }
-
+        
         String treatment = cmbTreatment.getSelectedItem().toString();
         double cost = controller.calculateTreatmentCost(treatment);
-
-        // We now pass the actual Address and Contact into the Appointment model
+        
+        // Passing all 10 arguments correctly
         Appointment appt = new Appointment(
-            txtApptNo.getText(), 
-            txtPatId.getText(), 
-            txtAddress.getText(),  // Now capturing Address
-            txtContact.getText(),  // Now capturing Contact
+            txtApptNo.getText().trim(), 
+            txtPatId.getText().trim(),  
+            "Check ID",                 
+            txtAddress.getText().trim(),
+            txtContact.getText().trim(),
             cmbDentist.getSelectedItem().toString(), 
             treatment, 
-            txtDate.getText(), 
-            txtTime.getText(), 
+            txtDate.getText().trim(), 
+            txtTime.getText().trim(), 
             cost
         );
-
+        
         if (controller.registerAppointment(appt)) {
             JOptionPane.showMessageDialog(this, "Appointment Confirmed!\nTreatment Cost: Rs. " + cost);
             this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Database Error. Could not save booking.");
         }
-      }
     }//GEN-LAST:event_btnConfirmActionPerformed
 
     private void txtContactActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContactActionPerformed

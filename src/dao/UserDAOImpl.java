@@ -11,25 +11,27 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public User authenticate(String username, String password) {
-        // Note: For top marks in security, you must mention in your report that 
-        // you would use BCrypt for password hashing in a production environment.
-        String query = "SELECT username, role FROM users WHERE username = ? AND password_hash = ?";
+        String query = "SELECT username, role, password_hash FROM users WHERE username = ?";
         try {
             Connection conn = DatabaseConnection.getInstance().getConnection();
             if (conn == null) return null;
             
             PreparedStatement pstmt = conn.prepareStatement(query);
             pstmt.setString(1, username);
-            pstmt.setString(2, password); // Comparing raw password to the hash for this basic implementation
-            
             ResultSet rs = pstmt.executeQuery();
             
             if (rs.next()) {
-                return new User(
-                    rs.getString("username"), 
-                    password, 
-                    rs.getString("role")
-                );
+                String dbHash = rs.getString("password_hash");
+                String inputHash = util.SecurityUtil.hashPassword(password);
+                
+                // Graceful migration: Checks if it matches the hash OR the legacy plain text password
+                if (dbHash.equals(inputHash) || dbHash.equals(password)) {
+                    return new User(
+                        rs.getString("username"), 
+                        dbHash, 
+                        rs.getString("role")
+                    );
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -46,10 +48,9 @@ public class UserDAOImpl implements UserDAO {
             if (conn == null) return false;
             
             PreparedStatement pstmt = conn.prepareStatement(query);
-            pstmt.setString(1, username);
-            // NOTE: In a real system, hash this password with BCrypt before saving!
-            pstmt.setString(2, password); 
-            pstmt.setString(3, role.toLowerCase()); // 'admin', 'doctor', or 'receptionist'
+            pstmt.setString(1, username);          
+            pstmt.setString(2, util.SecurityUtil.hashPassword(password)); 
+            pstmt.setString(3, role.toLowerCase()); 
             pstmt.setString(4, fullName);
             pstmt.setString(5, email);
             

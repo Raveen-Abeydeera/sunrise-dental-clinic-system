@@ -18,6 +18,8 @@ public class MainApplication extends JFrame {
         setSize(850, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        setLocationRelativeTo(null); // Centers the window on your monitor
+        this.setResizable(false);
 
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
@@ -44,7 +46,7 @@ public class MainApplication extends JFrame {
         loginBtn.setForeground(Color.WHITE);
 
         loginBtn.addActionListener(e -> {
-            if (controller.authenticateUser(userField.getText(), new String(passField.getPassword()))) {
+            if (controller.authenticateUser(userField.getText(), new String(passField.getPassword())) != null) {
                 cardLayout.show(mainPanel, "Dashboard");
                 userField.setText("");
                 passField.setText("");
@@ -114,9 +116,16 @@ public class MainApplication extends JFrame {
 
             double cost = controller.calculateTreatmentCost(treatments.getSelectedItem().toString());
             Appointment newAppt = new Appointment(
-                apptNo.getText(), patName.getText(), address.getText(), contact.getText(), 
-                dentists.getSelectedItem().toString(), treatments.getSelectedItem().toString(), 
-                date.getText(), time.getText(), cost
+                apptNo.getText(), 
+                "N/A", 
+                patName.getText(), 
+                address.getText(), 
+                contact.getText(), 
+                dentists.getSelectedItem().toString(), 
+                treatments.getSelectedItem().toString(), 
+                date.getText(), 
+                time.getText(), 
+                cost
             );
 
             if (controller.registerAppointment(newAppt)) {

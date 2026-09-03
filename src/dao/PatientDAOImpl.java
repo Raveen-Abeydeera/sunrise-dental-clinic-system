@@ -20,8 +20,7 @@ public class PatientDAOImpl implements PatientDAO {
             pstmt.setString(2, fullName);
             pstmt.setString(3, address);
             pstmt.setString(4, contactNumber);
-            // Assuming a simplified DOB calculation based on age for the demo, 
-            // in a real scenario, you'd capture the actual DOB from the UI.
+            
             pstmt.setString(5, "1990-01-01"); 
             
             return pstmt.executeUpdate() > 0;

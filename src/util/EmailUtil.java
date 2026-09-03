@@ -18,7 +18,7 @@ public class EmailUtil {
 
     public static void sendAppointmentConfirmation(String toEmail, String patientName, String apptNo, String date, String time, double cost) {
         
-        // Run in a new thread to prevent the Swing UI from freezing
+        
         new Thread(() -> {
             Properties props = new Properties();
             props.put("mail.smtp.auth", "true");

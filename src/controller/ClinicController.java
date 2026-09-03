@@ -42,12 +42,16 @@ public class ClinicController {
         if (username.isEmpty() || password.isEmpty() || fullName.isEmpty()) {
             return false; 
         }
+        
+        if (!util.SecurityUtil.isValidPassword(password)) {
+            throw new IllegalArgumentException("Password must be 8+ chars, contain uppercase, lowercase, numbers, and a special symbol (!@#$).");
+        }
+        
         return userDAO.registerUser(username, password, role, fullName, email);
     }
     
-    public boolean authenticateUser(String username, String password) {
-        // Now uses the database instead of hardcoded values
-        return userDAO.authenticate(username, password) != null;
+    public model.User authenticateUser(String username, String password) {
+        return userDAO.authenticate(username, password);
     }
     
     public boolean registerNewPatient(String patientId, String name, String address, String contact, int age) {

@@ -17,6 +17,8 @@ public class SearchBillingForm extends javax.swing.JFrame {
         controller = new ClinicController();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(null); // Centers the window on your monitor
+        this.setResizable(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -52,38 +54,38 @@ public class SearchBillingForm extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(72, 72, 72)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(76, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnSearch)
-                .addGap(18, 18, 18)
-                .addComponent(btnPrint)
-                .addGap(132, 132, 132))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
+                        .addComponent(btnSearch)
+                        .addGap(56, 56, 56)
+                        .addComponent(btnPrint))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtSearchNo, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(70, 70, 70)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(89, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(txtSearchNo, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8)))
+                .addGap(208, 208, 208))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
+                .addGap(53, 53, 53)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtSearchNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
+                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnPrint)
-                    .addComponent(btnSearch))
+                    .addComponent(btnSearch)
+                    .addComponent(btnPrint))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pack();
@@ -114,13 +116,39 @@ public class SearchBillingForm extends javax.swing.JFrame {
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         // TODO add your handling code here:
         try {
-            if (!txtDisplayArea.getText().isEmpty() && !txtDisplayArea.getText().contains("Record not found")) {
-                txtDisplayArea.print();
-            } else {
-                JOptionPane.showMessageDialog(this, "Search for a valid record first.");
+            if (txtDisplayArea.getText().isEmpty() || txtDisplayArea.getText().contains("Record not found")) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Search for a valid record first.");
+                return;
             }
-        } catch (PrinterException ex) {
-            JOptionPane.showMessageDialog(this, "Printing Error: " + ex.getMessage());
+
+            // 1. Generate an HTML file locally
+            java.io.File htmlFile = new java.io.File("Sunrise_Clinic_Receipt.html");
+            java.io.FileWriter writer = new java.io.FileWriter(htmlFile);
+            
+            writer.write("<html><head><title>Sunrise Dental - Receipt</title></head>");
+            writer.write("<body style='font-family: Arial, sans-serif; padding: 40px; text-align: center; background-color: #f4f4f9;'>");
+            writer.write("<div style='background-color: white; padding: 30px; border-radius: 10px; box-shadow: 0px 0px 10px #ccc; display: inline-block; text-align: left;'>");
+            writer.write("<h1 style='color: #2c3e50;'>Sunrise Dental Clinic</h1>");
+            writer.write("<h3 style='color: #7f8c8d;'>Official Patient Receipt</h3><hr>");
+            
+            // Format the Java text area content for the web
+            String webContent = txtDisplayArea.getText().replace("\n", "<br>").replace(" ", "&nbsp;");
+            writer.write("<p style='font-family: monospace; font-size: 16px;'>" + webContent + "</p>");
+            
+            writer.write("<hr><br>");
+            writer.write("<button onclick='window.print()' style='padding: 10px 20px; background-color: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;'>Print / Save as PDF</button>");
+            writer.write("</div></body></html>");
+            writer.close();
+
+            // 2. Instruct the OS to open the file in the default browser (Chrome)
+            if (java.awt.Desktop.isDesktopSupported()) {
+                java.awt.Desktop.getDesktop().browse(htmlFile.toURI());
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "Browser popup not supported on this OS.");
+            }
+
+        } catch (Exception ex) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Error generating receipt: " + ex.getMessage());
         }
     }//GEN-LAST:event_btnPrintActionPerformed
 
