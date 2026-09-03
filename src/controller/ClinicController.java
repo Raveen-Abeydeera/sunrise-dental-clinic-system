@@ -70,10 +70,9 @@ public class ClinicController {
         
         boolean isSaved = appointmentDAO.addAppointment(appt);
         
-        // If saved successfully in the database, trigger the email alert
+       
         if (isSaved) {
-            // Note: In a full system, you would fetch the patient's actual email from the Patient table.
-            // For demonstration, we'll pass a placeholder or the contact number field if used as email.
+            
             String patientEmail = "patient@example.com"; 
             
             EmailUtil.sendAppointmentConfirmation(
