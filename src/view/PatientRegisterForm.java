@@ -143,7 +143,7 @@ public class PatientRegisterForm extends javax.swing.JFrame {
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
         if (txtPatId.getText().trim().isEmpty() || txtName.getText().trim().isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Patient ID and Full Name are required!", "Validation Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Required fields missing!", "Validation Error", JOptionPane.ERROR_MESSAGE);
         return;
         }
         
@@ -155,6 +155,11 @@ public class PatientRegisterForm extends javax.swing.JFrame {
     } catch (NumberFormatException e) {
         JOptionPane.showMessageDialog(this, "Please enter a valid number for Age.", "Validation Error", JOptionPane.ERROR_MESSAGE);
         return;
+    }
+        String contact = txtContact.getText().trim();
+    if (!contact.matches("\\d+")) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Invalid Input: Contact number must contain ONLY numbers.", "Validation Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        return; 
     }
         ClinicController controller = new ClinicController();
             boolean success = controller.registerNewPatient(
