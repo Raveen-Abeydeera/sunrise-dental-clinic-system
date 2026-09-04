@@ -190,21 +190,45 @@ public class ClinicControllerTest {
     }
 
 
-    public static void main(String[] args) {
-        System.out.println("=========================================");
-        System.out.println(" SUNRISE CLINIC - AUTOMATED TEST SUITE   ");
-        System.out.println("=========================================");
+     // ADVANCED INDIVIDUAL TEST RUNNER
+    
+public static void main(String[] args) {
+    System.out.println("=========================================");
+    System.out.println(" SUNRISE CLINIC - INDIVIDUAL TEST RUNNER ");
+    System.out.println("=========================================");
+    
+    org.junit.runner.JUnitCore core = new org.junit.runner.JUnitCore();
+    
+    core.addListener(new org.junit.runner.notification.RunListener() {
+        boolean testFailed = false;
         
-        org.junit.runner.Result result = org.junit.runner.JUnitCore.runClasses(ClinicControllerTest.class);
-        
-        for (org.junit.runner.notification.Failure failure : result.getFailures()) {
-            System.out.println("FAILED: " + failure.toString());
+        @Override
+        public void testStarted(org.junit.runner.Description description) {
+            System.out.println("Executing Test : " + description.getMethodName());
+            testFailed = false;
         }
         
-        System.out.println("=========================================");
-        System.out.println("Total Tests Run : " + result.getRunCount());
-        System.out.println("Tests Passed    : " + (result.getRunCount() - result.getFailureCount()));
-        System.out.println("Success Rate    : " + (result.wasSuccessful() ? "100% EXCELLENT" : "Check Failures"));
-        System.out.println("=========================================");
-    }
+        @Override
+        public void testFailure(org.junit.runner.notification.Failure failure) {
+            System.out.println("Status         : [ FAILED ] -> " + failure.getMessage());
+            testFailed = true;
+        }
+        
+        @Override
+        public void testFinished(org.junit.runner.Description description) {
+            if (!testFailed) {
+                System.out.println("Status         : [ PASSED ]");
+            }
+            System.out.println("-----------------------------------------");
+        }
+    });
+
+    org.junit.runner.Result result = core.run(ClinicControllerTest.class);
+    
+    System.out.println("=========================================");
+    System.out.println("Total Tests Run : " + result.getRunCount());
+    System.out.println("Success Rate    : " + (result.wasSuccessful() ? "100% EXCELLENT" : "Check Failures"));
+    System.out.println("=========================================");
+  }
+    
 }
